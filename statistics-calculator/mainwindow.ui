@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>802</width>
+    <height>479</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -107,76 +107,250 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QCheckBox" name="standardDeviation_checkBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>170</y>
-      <width>271</width>
-      <height>157</height>
+      <x>410</x>
+      <y>220</y>
+      <width>181</width>
+      <height>25</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QCheckBox" name="arithmeticMean_checkBox">
-           <property name="text">
-            <string>Arithmetic Mean</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="median_checkBox">
-           <property name="text">
-            <string>Median</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="minimum_checkBox">
-           <property name="text">
-            <string>Minimum</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="maximum_checkBox">
-           <property name="text">
-            <string>Maximum</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QLCDNumber" name="arithmeticMean_lcd"/>
-         </item>
-         <item>
-          <widget class="QLCDNumber" name="median_lcd"/>
-         </item>
-         <item>
-          <widget class="QLCDNumber" name="minimum_lcd"/>
-         </item>
-         <item>
-          <widget class="QLCDNumber" name="maximum_lcd"/>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="displayData_button">
-       <property name="text">
-        <string>Display selected data</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>Standard Deviation (n-1)</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="lowerQuartile_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>260</y>
+      <width>181</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lower Quartile</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="upperQuartile_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>300</y>
+      <width>181</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Upper Quartile</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="variance_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>179</y>
+      <width>181</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Variance</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="lowerQuartile_lcd">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>260</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="upperQuartile_lcd">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>300</y>
+      <width>91</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="variance_lcd">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>180</y>
+      <width>92</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="standardDeviation_lcd">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>220</y>
+      <width>91</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="displayData_button">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>360</y>
+      <width>209</width>
+      <height>48</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Display selected data</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="arithmeticMean_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>83</x>
+      <y>179</y>
+      <width>136</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Arithmetic Mean</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="median_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>83</x>
+      <y>220</y>
+      <width>75</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Median</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="minimum_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>83</x>
+      <y>260</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Minimum</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="maximum_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>83</x>
+      <y>300</y>
+      <width>92</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Maximum</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="arithmeticMean_lcd">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>180</y>
+      <width>93</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="median_lcd">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>220</y>
+      <width>92</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="minimum_lcd">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>260</y>
+      <width>92</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="maximum_lcd">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>300</y>
+      <width>92</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="digitCount">
+     <number>7</number>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -184,7 +358,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>802</width>
      <height>24</height>
     </rect>
    </property>

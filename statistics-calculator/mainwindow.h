@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,30 +31,52 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    // Labels
     QLabel *titleLabel;
     QLabel *inputDataLabel;
     QLabel *countDataLabel;
+
+    // Line Edits
     QLineEdit *inputDataLineEdit;
+
+    // Buttons
     QPushButton *saveDataButton;
     QPushButton *clearDataButton;
     QPushButton *displayDataButton;
+
+    // LCD-Displays
     QLCDNumber *countDataDisplay;
     QLCDNumber *arithmeticMeanDisplay;
     QLCDNumber *medianDisplay;
     QLCDNumber *minimumDisplay;
     QLCDNumber *maximumDisplay;
+    QLCDNumber *varianceDisplay;
+    QLCDNumber *standardDeviationDisplay;
+    QLCDNumber *lowerQuartileDisplay;
+    QLCDNumber *upperQuartileDisplay;
+
+    // Checkboxes
     QCheckBox *arithmeticMeanCheckBox;
     QCheckBox *medianCheckBox;
     QCheckBox *minimumCheckBox;
     QCheckBox *maximumCheckBox;
+    QCheckBox *varianceCheckBox;
+    QCheckBox *standardDeviationCheckBox;
+    QCheckBox *lowerQuartileCheckBox;
+    QCheckBox *upperQuartileCheckBox;
 
+    // Data
     std::vector<float> *m_data = nullptr;
+    double arithmeticMean, median, minimum, maximum;
+    double variance, standardDeviation, lowerQuartile, upperQuartile;
 
     void update_data_counter();
     void set_input_display_to_default_value();
     void disable_all_checkboxes();
     void enable_all_checkboxes();
-    void update_lcd_outputs(double, double, double, double);
+    void reset_all_calculations();
+    void update_lcd_outputs();
 
 };
 #endif // MAINWINDOW_H

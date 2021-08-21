@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Setting the private variables
     m_data = new std::vector<float>(0);
+    reset_all_calculations();
 
     // Labels
     titleLabel = MainWindow::findChild<QLabel *>(QStringLiteral("title_label"));
@@ -24,21 +26,35 @@ MainWindow::MainWindow(QWidget *parent)
 
     // LCD Displays
     countDataDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("countDisplay_lcd"));
-    countDataDisplay->setMode(QLCDNumber::Dec);
     arithmeticMeanDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("arithmeticMean_lcd"));
-    arithmeticMeanDisplay->setMode(QLCDNumber::Dec);
     medianDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("median_lcd"));
-    medianDisplay->setMode(QLCDNumber::Dec);
     minimumDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("minimum_lcd"));
-    minimumDisplay->setMode(QLCDNumber::Dec);
     maximumDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("maximum_lcd"));
+    varianceDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("variance_lcd"));
+    standardDeviationDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("standardDeviation_lcd"));
+    lowerQuartileDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("lowerQuartile_lcd"));
+    upperQuartileDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("upperQuartile_lcd"));
+
+
+    countDataDisplay->setMode(QLCDNumber::Dec);
+    arithmeticMeanDisplay->setMode(QLCDNumber::Dec);
+    medianDisplay->setMode(QLCDNumber::Dec);
+    minimumDisplay->setMode(QLCDNumber::Dec);
     maximumDisplay->setMode(QLCDNumber::Dec);
+    varianceDisplay->setMode(QLCDNumber::Dec);
+    standardDeviationDisplay->setMode(QLCDNumber::Dec);
+    lowerQuartileDisplay->setMode(QLCDNumber::Dec);
+    upperQuartileDisplay->setMode(QLCDNumber::Dec);
 
     // Check Boxes
     arithmeticMeanCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("arithmeticMean_checkBox"));
     medianCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("median_checkBox"));
     minimumCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("minimum_checkBox"));
     maximumCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("maximum_checkBox"));
+    varianceCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("variance_checkBox"));
+    standardDeviationCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("standardDeviation_checkBox"));
+    lowerQuartileCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("lowerQuartile_checkBox"));
+    upperQuartileCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("upperQuartile_checkBox"));
 
     // Setting the objects to a default value
     update_data_counter();
@@ -81,24 +97,33 @@ void MainWindow::save_data()
 void MainWindow::clear_all_data()
 {
     m_data->clear();
+    reset_all_calculations();
     update_data_counter();
     disable_all_checkboxes();
+    reset_all_calculations();
+    update_lcd_outputs();
 }
 
 void MainWindow::display_selected_data()
 {
     int dataSize = m_data->size();
-    double arithmeticMean = 0.0;
-    double median = 0.0;
-    double minimum = 0.0;
-    double maximum = 0.0;
-    if(arithmeticMeanCheckBox->isChecked()) {
-        float sum = 0;
-        for(int i = 0; i < dataSize; ++i) {
-            sum += m_data->at(i);
-        }
-        arithmeticMean = sum/dataSize;
+    for(int i = 0; i < dataSize; ++i) {
+        arithmeticMean += m_data->at(i);
     }
+    arithmeticMean /= dataSize;
+
+    variance = 0;
+    for(int i = 0; i < dataSize; ++i) {
+        variance += pow((m_data->at(i) - arithmeticMean), 2);
+    }
+    variance /= (dataSize - 1);
+
+
+    // Arithmetic Mean
+    if(arithmeticMeanCheckBox->isChecked()) {
+        // TODO: Set the mask for update_lcd_outputs() here
+    }
+    // Median
     if(medianCheckBox->isChecked()) {
         if(dataSize % 2 == 0) {
             int firstPos = (dataSize/2)-1;
@@ -108,13 +133,23 @@ void MainWindow::display_selected_data()
             median = m_data->at(dataSize/2);
         }
     }
+    // Minimum
     if(minimumCheckBox->isChecked()) {
         minimum = m_data->at(0);
     }
+    // Maximum
     if(maximumCheckBox->isChecked()) {
         maximum = m_data->at(dataSize-1);
     }
-    update_lcd_outputs(arithmeticMean, median, minimum, maximum);
+    // Variance
+    if(varianceCheckBox->isChecked()) {
+        // TODO: Set the mask for update_lcd_outputs() here
+    }
+    // Standard Deviation
+    if(standardDeviationCheckBox->isChecked()) {
+        standardDeviation = sqrt(variance);
+    }
+    update_lcd_outputs();
 }
 
 void MainWindow::update_data_counter()
@@ -126,7 +161,8 @@ void MainWindow::set_input_display_to_default_value()
 {
     inputDataLineEdit->setText(QString("0.0"));
     update_data_counter();
-    update_lcd_outputs(0,0,0,0);
+    reset_all_calculations();
+    update_lcd_outputs();
 }
 
 void MainWindow::disable_all_checkboxes()
@@ -142,6 +178,18 @@ void MainWindow::disable_all_checkboxes()
 
     maximumCheckBox->setDisabled(true);
     maximumCheckBox->setChecked(false);
+
+    varianceCheckBox->setDisabled(true);
+    varianceCheckBox->setChecked(false);
+
+    standardDeviationCheckBox->setDisabled(true);
+    standardDeviationCheckBox->setChecked(false);
+
+    lowerQuartileCheckBox->setDisabled(true);
+    lowerQuartileCheckBox->setChecked(false);
+
+    upperQuartileCheckBox->setDisabled(true);
+    upperQuartileCheckBox->setChecked(false);
 }
 
 void MainWindow::enable_all_checkboxes()
@@ -150,13 +198,26 @@ void MainWindow::enable_all_checkboxes()
     medianCheckBox->setDisabled(false);
     minimumCheckBox->setDisabled(false);
     maximumCheckBox->setDisabled(false);
+    varianceCheckBox->setDisabled(false);
+    standardDeviationCheckBox->setDisabled(false);
+    lowerQuartileCheckBox->setDisabled(false);
+    upperQuartileCheckBox->setDisabled(false);
 }
 
-void MainWindow::update_lcd_outputs(double arithmeticMeanValue = 0.0, double medianValue = 0.0, double minValue = 0.0, double maxValue = 0.0)
+void MainWindow::reset_all_calculations()
 {
-    arithmeticMeanDisplay->display(static_cast<double>(arithmeticMeanValue));
-    medianDisplay->display(static_cast<double>(medianValue));
-    minimumDisplay->display(static_cast<double>(minValue));
-    maximumDisplay->display(static_cast<double>(maxValue));
+    arithmeticMean = 0, median = 0, minimum = 0, maximum = 0;
+    variance = 0, standardDeviation = 0, lowerQuartile = 0, upperQuartile = 0;
 }
 
+void MainWindow::update_lcd_outputs()
+{
+    arithmeticMeanDisplay->display(arithmeticMean);
+    medianDisplay->display(median);
+    minimumDisplay->display(minimum);
+    maximumDisplay->display(maximum);
+    varianceDisplay->display(variance);
+    standardDeviationDisplay->display(standardDeviation);
+    lowerQuartileDisplay->display(lowerQuartile);
+    upperQuartileDisplay->display(upperQuartile);
+}
