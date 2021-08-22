@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     saveDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("saveData_button"));
     clearDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("clearData_button"));
     displayDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("displayData_button"));
+    showGraphicButton = MainWindow::findChild<QPushButton *>(QStringLiteral("showGraphic_button"));
 
     // LCD Displays
     countDataDisplay = MainWindow::findChild<QLCDNumber *>(QStringLiteral("countDisplay_lcd"));
@@ -65,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(saveDataButton, SIGNAL(clicked(bool)), this, SLOT(save_data()));
     connect(clearDataButton, SIGNAL(clicked(bool)), this, SLOT(clear_all_data()));
     connect(displayDataButton, SIGNAL(clicked(bool)), this, SLOT(display_selected_data()));
+    connect(showGraphicButton, SIGNAL(clicked(bool)), this, SLOT(show_graphic()));
 }
 
 MainWindow::~MainWindow()
@@ -159,6 +161,11 @@ void MainWindow::display_selected_data()
         outputMask |= UPPER_QUARTILE;
 
     update_lcd_outputs(outputMask);
+}
+
+void MainWindow::show_graphic()
+{
+    // TODO
 }
 
 void MainWindow::update_data_counter()

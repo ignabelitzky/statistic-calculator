@@ -10,7 +10,7 @@ enum display_output {
                       STANDARD_DEVIATION = (1u << 5),
                       LOWER_QUARTILE = (1u << 6),
                       UPPER_QUARTILE = (1u << 7),
-                      ALL = (0x11111111u)
+                      ALL = (255u)
                     };
 
 #endif // PARAM_H

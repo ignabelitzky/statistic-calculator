@@ -29,6 +29,7 @@ private slots:
     void save_data();
     void clear_all_data();
     void display_selected_data();
+    void show_graphic();
 
 private:
     Ui::MainWindow *ui;
@@ -45,6 +46,7 @@ private:
     QPushButton *saveDataButton;
     QPushButton *clearDataButton;
     QPushButton *displayDataButton;
+    QPushButton *showGraphicButton;
 
     // LCD-Displays
     QLCDNumber *countDataDisplay;
