@@ -11,6 +11,7 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include "param.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -76,7 +77,7 @@ private:
     void disable_all_checkboxes();
     void enable_all_checkboxes();
     void reset_all_calculations();
-    void update_lcd_outputs();
+    void update_lcd_outputs(unsigned int outputMask);
 
 };
 #endif // MAINWINDOW_H

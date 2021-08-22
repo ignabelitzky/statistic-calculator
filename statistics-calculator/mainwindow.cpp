@@ -101,16 +101,29 @@ void MainWindow::clear_all_data()
     update_data_counter();
     disable_all_checkboxes();
     reset_all_calculations();
-    update_lcd_outputs();
+    update_lcd_outputs(ALL);
 }
 
 void MainWindow::display_selected_data()
 {
+    reset_all_calculations();
+    unsigned int outputMask = 0u;
     int dataSize = m_data->size();
     for(int i = 0; i < dataSize; ++i) {
         arithmeticMean += m_data->at(i);
     }
     arithmeticMean /= dataSize;
+
+    if(dataSize % 2 == 0) {
+        int firstPos = (dataSize/2)-1;
+        int secondPos = dataSize/2;
+        median = (m_data->at(firstPos) + m_data->at(secondPos))/2;
+    } else {
+        median = m_data->at(dataSize/2);
+    }
+
+    minimum = m_data->at(0);
+    maximum = m_data->at(dataSize-1);
 
     variance = 0;
     for(int i = 0; i < dataSize; ++i) {
@@ -118,38 +131,34 @@ void MainWindow::display_selected_data()
     }
     variance /= (dataSize - 1);
 
+    standardDeviation = sqrt(variance);
 
     // Arithmetic Mean
-    if(arithmeticMeanCheckBox->isChecked()) {
-        // TODO: Set the mask for update_lcd_outputs() here
-    }
+    if(arithmeticMeanCheckBox->isChecked())
+        outputMask |= ARITHMETIC_MEAN;
     // Median
-    if(medianCheckBox->isChecked()) {
-        if(dataSize % 2 == 0) {
-            int firstPos = (dataSize/2)-1;
-            int secondPos = dataSize/2;
-            median = (m_data->at(firstPos) + m_data->at(secondPos))/2;
-        } else {
-            median = m_data->at(dataSize/2);
-        }
-    }
+    if(medianCheckBox->isChecked())
+        outputMask |= MEDIAN;
     // Minimum
-    if(minimumCheckBox->isChecked()) {
-        minimum = m_data->at(0);
-    }
+    if(minimumCheckBox->isChecked())
+        outputMask |= MINIMUM;
     // Maximum
-    if(maximumCheckBox->isChecked()) {
-        maximum = m_data->at(dataSize-1);
-    }
+    if(maximumCheckBox->isChecked())
+        outputMask |= MAXIMUM;
     // Variance
-    if(varianceCheckBox->isChecked()) {
-        // TODO: Set the mask for update_lcd_outputs() here
-    }
+    if(varianceCheckBox->isChecked())
+        outputMask |= VARIANCE;
     // Standard Deviation
-    if(standardDeviationCheckBox->isChecked()) {
-        standardDeviation = sqrt(variance);
-    }
-    update_lcd_outputs();
+    if(standardDeviationCheckBox->isChecked())
+        outputMask |= STANDARD_DEVIATION;
+    // Lower Quartile
+    if(lowerQuartileCheckBox->isChecked())
+        outputMask |= LOWER_QUARTILE;
+    // Upper Quartile
+    if(upperQuartileCheckBox->isChecked())
+        outputMask |= UPPER_QUARTILE;
+
+    update_lcd_outputs(outputMask);
 }
 
 void MainWindow::update_data_counter()
@@ -162,7 +171,7 @@ void MainWindow::set_input_display_to_default_value()
     inputDataLineEdit->setText(QString("0.0"));
     update_data_counter();
     reset_all_calculations();
-    update_lcd_outputs();
+    update_lcd_outputs(ALL);
 }
 
 void MainWindow::disable_all_checkboxes()
@@ -210,14 +219,22 @@ void MainWindow::reset_all_calculations()
     variance = 0, standardDeviation = 0, lowerQuartile = 0, upperQuartile = 0;
 }
 
-void MainWindow::update_lcd_outputs()
+void MainWindow::update_lcd_outputs(unsigned int outputMask)
 {
-    arithmeticMeanDisplay->display(arithmeticMean);
-    medianDisplay->display(median);
-    minimumDisplay->display(minimum);
-    maximumDisplay->display(maximum);
-    varianceDisplay->display(variance);
-    standardDeviationDisplay->display(standardDeviation);
-    lowerQuartileDisplay->display(lowerQuartile);
-    upperQuartileDisplay->display(upperQuartile);
+    if(outputMask & ARITHMETIC_MEAN)
+        arithmeticMeanDisplay->display(arithmeticMean);
+    if(outputMask & MEDIAN)
+        medianDisplay->display(median);
+    if(outputMask & MINIMUM)
+        minimumDisplay->display(minimum);
+    if(outputMask & MAXIMUM)
+        maximumDisplay->display(maximum);
+    if(outputMask & VARIANCE)
+        varianceDisplay->display(variance);
+    if(outputMask & STANDARD_DEVIATION)
+        standardDeviationDisplay->display(standardDeviation);
+    if(outputMask & LOWER_QUARTILE)
+        lowerQuartileDisplay->display(lowerQuartile);
+    if(outputMask & UPPER_QUARTILE)
+        upperQuartileDisplay->display(upperQuartile);
 }
