@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     update_data_counter();
     set_input_display_to_default_value();
     disable_all_checkboxes();
+    disable_output_buttons();
 
     // Connecting SIGNALS and SLOTS
     connect(saveDataButton, SIGNAL(clicked(bool)), this, SLOT(save_data()));
@@ -77,17 +78,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::save_data()
 {
-    if(m_data->size() == 0) {
-        enable_all_checkboxes();
-    }
     QString inputData = inputDataLineEdit->text();
     if(inputData.isEmpty()) {
-        QMessageBox msgWarning;
+        QMessageBox msgWarning(this);
         msgWarning.setText("WARNING!\nYou don't enter any value.");
         msgWarning.setIcon(QMessageBox::Warning);
         msgWarning.setWindowTitle("Caution");
         msgWarning.exec();
     } else {
+        if(m_data->size() == 0) {
+            enable_all_checkboxes();
+            enable_output_buttons();
+        }
         float value = inputData.toFloat();
         m_data->push_back(value);
         std::sort(m_data->begin(), m_data->end());
@@ -102,6 +104,7 @@ void MainWindow::clear_all_data()
     reset_all_calculations();
     update_data_counter();
     disable_all_checkboxes();
+    disable_output_buttons();
     reset_all_calculations();
     update_lcd_outputs(ALL);
 }
@@ -171,11 +174,14 @@ void MainWindow::show_graphic()
 void MainWindow::update_data_counter()
 {
     countDataDisplay->display(static_cast<int>(m_data->size()));
+    // Clear and set focus to the Line Edit
+    inputDataLineEdit->clear();
+    inputDataLineEdit->setFocus();
 }
 
 void MainWindow::set_input_display_to_default_value()
 {
-    inputDataLineEdit->setText(QString("0.0"));
+    // inputDataLineEdit->setText(QString("0.0"));
     update_data_counter();
     reset_all_calculations();
     update_lcd_outputs(ALL);
@@ -206,6 +212,18 @@ void MainWindow::disable_all_checkboxes()
 
     upperQuartileCheckBox->setDisabled(true);
     upperQuartileCheckBox->setChecked(false);
+}
+
+void MainWindow::disable_output_buttons()
+{
+    displayDataButton->setDisabled(true);
+    showGraphicButton->setDisabled(true);
+}
+
+void MainWindow::enable_output_buttons()
+{
+    displayDataButton->setEnabled(true);
+    showGraphicButton->setEnabled(true);
 }
 
 void MainWindow::enable_all_checkboxes()
@@ -244,4 +262,15 @@ void MainWindow::update_lcd_outputs(unsigned int outputMask)
         lowerQuartileDisplay->display(lowerQuartile);
     if(outputMask & UPPER_QUARTILE)
         upperQuartileDisplay->display(upperQuartile);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox msgBox(this);
+    QString information("<center><b>License</b><br>GNU General Public License v3.0<br><br><b>Created by</b><br>Ignacio Belitzky</center>");
+    QString title("About Statistics Calculator");
+    msgBox.setText(information);
+    msgBox.setWindowTitle(title);
+    msgBox.addButton(QMessageBox::Ok);
+    msgBox.exec();
 }

@@ -31,6 +31,8 @@ private slots:
     void display_selected_data();
     void show_graphic();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -77,6 +79,8 @@ private:
     void update_data_counter();
     void set_input_display_to_default_value();
     void disable_all_checkboxes();
+    void disable_output_buttons();
+    void enable_output_buttons();
     void enable_all_checkboxes();
     void reset_all_calculations();
     void update_lcd_outputs(unsigned int outputMask);
