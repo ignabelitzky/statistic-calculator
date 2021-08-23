@@ -19,8 +19,7 @@ Here is a [clip of the program](https://youtu.be/4WeZVzO6_UQ)
 This piece of software is far for complete so pull requests are welcome.
 
 ## License
-GNU General Public License v3.0
-[GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
+[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ## TODO
 - Implement the possibility of show data on a graphic
