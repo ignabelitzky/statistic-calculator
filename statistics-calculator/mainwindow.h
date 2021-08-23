@@ -8,6 +8,7 @@
 #include <QLCDNumber>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QPixmap>
 #include <vector>
 #include <algorithm>
 #include <math.h>
