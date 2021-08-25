@@ -543,7 +543,7 @@
           <item>
            <widget class="QLabel" name="input_label">
             <property name="text">
-             <string>Input data:</string>
+             <string>Input:</string>
             </property>
            </widget>
           </item>
@@ -577,22 +577,19 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QPushButton" name="importData_button">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
+            <property name="text">
+             <string>Import data from file</string>
             </property>
-           </spacer>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="count_label">
             <property name="text">
-             <string>Data count:</string>
+             <string>Size:</string>
             </property>
            </widget>
           </item>
@@ -859,6 +856,7 @@
   <tabstop>showGraphic_button</tabstop>
  </tabstops>
  <resources>
+  <include location="resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>

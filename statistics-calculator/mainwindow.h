@@ -8,7 +8,7 @@
 #include <QLCDNumber>
 #include <QCheckBox>
 #include <QMessageBox>
-#include <QPixmap>
+#include <QFileDialog>
 #include <vector>
 #include <algorithm>
 #include <math.h>
@@ -29,9 +29,9 @@ public:
 private slots:
     void save_data();
     void clear_all_data();
+    void import_data_from_file();
     void display_selected_data();
     void show_graphic();
-
     void on_actionAbout_triggered();
 
 private:
@@ -48,6 +48,7 @@ private:
     // Buttons
     QPushButton *saveDataButton;
     QPushButton *clearDataButton;
+    QPushButton *importDataButton;
     QPushButton *displayDataButton;
     QPushButton *showGraphicButton;
 

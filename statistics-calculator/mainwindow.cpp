@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Buttons
     saveDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("saveData_button"));
     clearDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("clearData_button"));
+    importDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("importData_button"));
     displayDataButton = MainWindow::findChild<QPushButton *>(QStringLiteral("displayData_button"));
     showGraphicButton = MainWindow::findChild<QPushButton *>(QStringLiteral("showGraphic_button"));
 
@@ -66,8 +67,11 @@ MainWindow::MainWindow(QWidget *parent)
     // Connecting SIGNALS and SLOTS
     connect(saveDataButton, SIGNAL(clicked(bool)), this, SLOT(save_data()));
     connect(clearDataButton, SIGNAL(clicked(bool)), this, SLOT(clear_all_data()));
+    connect(importDataButton, SIGNAL(clicked(bool)), this, SLOT(import_data_from_file()));
     connect(displayDataButton, SIGNAL(clicked(bool)), this, SLOT(display_selected_data()));
     connect(showGraphicButton, SIGNAL(clicked(bool)), this, SLOT(show_graphic()));
+
+    importDataButton->setToolTip(QStringLiteral("Select a file with the numbers separated by spaces."));
 }
 
 MainWindow::~MainWindow()
@@ -105,8 +109,47 @@ void MainWindow::clear_all_data()
     update_data_counter();
     disable_all_checkboxes();
     disable_output_buttons();
-    reset_all_calculations();
     update_lcd_outputs(ALL);
+}
+
+void MainWindow::import_data_from_file()
+{
+    clear_all_data();
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open file"), "/home/", "*");
+    if(filename.isEmpty()) {
+        QMessageBox msgWarning(this);
+        msgWarning.setText("WARNING!\nYou don't open any file.");
+        msgWarning.setIcon(QMessageBox::Warning);
+        msgWarning.setWindowTitle("Caution");
+        msgWarning.exec();
+    } else{
+        QFile file(filename);
+        if(file.open(QFile::ReadWrite)) {
+            QTextStream in(&file);
+            QString line = "";
+            QStringList myList;
+            while(!in.atEnd()) {
+                line = in.readLine();
+                myList = line.split(" ");
+                for(int i = 0; i < myList.size(); ++i) {
+                    m_data->push_back(myList.at(i).toFloat());
+                }
+            }
+            if(!m_data->empty()) {
+                update_data_counter();
+                enable_all_checkboxes();
+                enable_output_buttons();
+                std::sort(m_data->begin(), m_data->end());
+            }
+            file.close();
+        } else {
+            QMessageBox msgError(this);
+            msgError.setText("ERROR!\nThe file could not be opened!");
+            msgError.setIcon(QMessageBox::Warning);
+            msgError.setWindowTitle("Error");
+            msgError.exec();
+        }
+    }
 }
 
 void MainWindow::display_selected_data()
@@ -181,7 +224,6 @@ void MainWindow::update_data_counter()
 
 void MainWindow::set_input_display_to_default_value()
 {
-    // inputDataLineEdit->setText(QString("0.0"));
     update_data_counter();
     reset_all_calculations();
     update_lcd_outputs(ALL);
