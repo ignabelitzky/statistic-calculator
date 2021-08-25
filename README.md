@@ -17,6 +17,8 @@ The data can be entered manually or via a space-separated numbers file.
 The calculations are very easy to show, just select what you want to see and press "Display selected data".
 
 ### Screenshots and videoclips
+![Screenshot](https://github.com/ignabelitzky/statistics-calculator/blob/main/statistics-calculator/images/screenshots/screenshot_img3.png)
+
 Here is a [clip of the program](https://youtu.be/4WeZVzO6_UQ)
 
 ### Contributing
