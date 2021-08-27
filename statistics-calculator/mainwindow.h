@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm>
 #include <math.h>
+#include <unistd.h>
+#include <sys/wait.h>
 #include "param.h"
 
 QT_BEGIN_NAMESPACE
@@ -86,6 +88,7 @@ private:
     void enable_all_checkboxes();
     void reset_all_calculations();
     void update_lcd_outputs(unsigned int outputMask);
+    QString data_to_string();
 
 };
 #endif // MAINWINDOW_H

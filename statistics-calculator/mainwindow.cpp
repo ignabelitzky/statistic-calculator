@@ -209,9 +209,38 @@ void MainWindow::display_selected_data()
     update_lcd_outputs(outputMask);
 }
 
+QString MainWindow::data_to_string() {
+    std::vector<float>::iterator it;
+    QString result = "";
+    for(it = m_data->begin(); it < m_data->end(); ++it) {
+        result += QString::number(*it);
+        if(it != m_data->end()-1) {
+            result += QString(",");
+        }
+    }
+    return result;
+}
+
 void MainWindow::show_graphic()
 {
-    // TODO
+    QString scriptPath = QFileDialog::getOpenFileName(this, tr("Locate python script"), "/home/", "*.py");
+    if(scriptPath.isEmpty()) {
+        QMessageBox msgWarning(this);
+        msgWarning.setText("WARNING!\nYou don't select any file.");
+        msgWarning.setIcon(QMessageBox::Warning);
+        msgWarning.setWindowTitle("Caution");
+        msgWarning.exec();
+    } else {
+        int rc = fork();
+        if(rc == -1) {
+            qDebug() << "Error forking!!!";
+        } else if(rc == 0) {
+            QString values = data_to_string();
+            execl("/usr/bin/python", "python", scriptPath.toStdString().c_str(), values.toStdString().c_str(), NULL);
+        } else {
+            wait(NULL);
+        }
+    }
 }
 
 void MainWindow::update_data_counter()
