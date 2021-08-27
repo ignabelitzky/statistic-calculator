@@ -15,6 +15,7 @@ To compile the Static Calculator you should open the CMakeList.txt file with QT 
 ### Input/Output of the data/calculations
 * The data can be entered manually or via a space-separated numbers file.
 * The calculations are very easy to show, just select what you want to see and press "Display selected data".
+* The data can be showed just clicking on the "Show Graphic" button. You must select the drawGraph.py script to display the graphic of the data.
 
 ### Screenshot and videoclip
 ![Screenshot](https://github.com/ignabelitzky/statistics-calculator/blob/main/statistics-calculator/images/screenshots/screenshot_img3.png)
@@ -29,11 +30,10 @@ This piece of software is far for complete so pull requests are welcome.
 
 ### TO-DO
 - The posibility of see all the data and do modifications.
-- Implement the possibility of show data on a graphic.
+- Improve the drawGraph.py script for showing the graphical representation of the data.
 - Implement lower and upper quartile.
 - Improve GUI with a background and some colours (remainder: make the interface more modern).
 
 ### Known issues
 - It is not a modular code.
-- The load of data it's not perfect (i.e it does not check if you type letters or if the format of the input file is correct)
-- The "Show Graphic" button must be implemented.
+- The load of data it's not perfect (i.e it does not check if you type letters or if the format of the input file is correct).
