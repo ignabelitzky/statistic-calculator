@@ -1,5 +1,5 @@
 # Statistics Calculator
-Statistics calculator. It performs the following operation:
+Statistics calculator. It performs the following operations:
 * Arithmetic Mean
 * Median
 * Minimum
@@ -13,10 +13,12 @@ Statistics calculator. It performs the following operation:
 To compile the Static Calculator you should open the CMakeList.txt file with QT Creator and now you can build the app and run on your Linux machine.
 
 ### Input/Output of the data/calculations
-The data can be entered manually or via a space-separated numbers file.
-The calculations are very easy to show, just select what you want to see and press "Display selected data".
+* The data can be entered manually or via a space-separated numbers file.
+* The calculations are very easy to show, just select what you want to see and press "Display selected data".
 
-### Screenshots and videoclips
+### Screenshot and videoclip
+![Screenshot](https://github.com/ignabelitzky/statistics-calculator/blob/main/statistics-calculator/images/screenshots/screenshot_img3.png)
+
 Here is a [clip of the program](https://youtu.be/4WeZVzO6_UQ)
 
 ### Contributing
