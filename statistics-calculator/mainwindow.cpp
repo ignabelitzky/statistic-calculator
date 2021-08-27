@@ -223,7 +223,7 @@ QString MainWindow::data_to_string() {
 
 void MainWindow::show_graphic()
 {
-    QString scriptPath = QFileDialog::getOpenFileName(this, tr("Locate python script"), "/home/", "*.py");
+    QString scriptPath = QFileDialog::getOpenFileName(this, tr("Select python script for graphic display"), "/home/", "*.py");
     if(scriptPath.isEmpty()) {
         QMessageBox msgWarning(this);
         msgWarning.setText("WARNING!\nYou don't select any file.");
@@ -237,8 +237,6 @@ void MainWindow::show_graphic()
         } else if(rc == 0) {
             QString values = data_to_string();
             execl("/usr/bin/python", "python", scriptPath.toStdString().c_str(), values.toStdString().c_str(), NULL);
-        } else {
-            wait(NULL);
         }
     }
 }
