@@ -89,6 +89,8 @@ void MainWindow::save_data()
         msgWarning.setIcon(QMessageBox::Warning);
         msgWarning.setWindowTitle("Caution");
         msgWarning.exec();
+        inputDataLineEdit->clear();
+        inputDataLineEdit->setFocus();
     } else {
         if(m_data->size() == 0) {
             enable_all_checkboxes();
