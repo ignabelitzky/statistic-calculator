@@ -5,6 +5,7 @@ from math import sqrt
 
 data = [float(idx) for idx in sys.argv[1].split(',')]
 
+plt.figure("Histogram")
 n_bins = int(sqrt(len(data)))
 n, bins, patches = plt.hist(data, n_bins, facecolor='b', edgecolor='black', linewidth=0.8, alpha=0.75)
 
