@@ -117,7 +117,7 @@ void MainWindow::clear_all_data()
 void MainWindow::import_data_from_file()
 {
     clear_all_data();
-    QString filename = QFileDialog::getOpenFileName(this, tr("Open file"), "/home/", "*");
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::homePath(), "*");
     if(filename.isEmpty()) {
         QMessageBox msgWarning(this);
         msgWarning.setText("WARNING!\nYou don't open any file.");
