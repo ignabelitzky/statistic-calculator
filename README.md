@@ -6,8 +6,8 @@ Statistics calculator. It performs the following operations:
 * Maximum
 * Variance
 * Standard Deviation (n-1)
-* Lower Quartile (in development)
-* Upper Quartile (in development)
+* Lower Quartile
+* Upper Quartile
 
 ## Getting Started
 To compile the Static Calculator you should open the CMakeList.txt file with QT Creator and now you can build the app and run on your Linux machine.
@@ -31,7 +31,6 @@ This piece of software is far for complete so pull requests are welcome.
 ### TO-DO
 - The posibility of see all the data and do modifications.
 - Improve the drawGraph.py script for showing the graphical representation of the data.
-- Implement lower and upper quartile.
 - Improve GUI with a background and some colours (remainder: make the interface more modern).
 
 ### Known issues

@@ -183,6 +183,13 @@ void MainWindow::display_selected_data()
 
     standardDeviation = sqrt(variance);
 
+    unsigned int mid = dataSize/2;
+    unsigned int lower = mid/2;
+    unsigned int upper = (dataSize+mid)/2;
+
+    lowerQuartile = mid % 2 == 0 ? (m_data->at(lower) + m_data->at(lower-1))/2 : m_data->at(lower);
+    upperQuartile = mid % 2 == 0 ? (m_data->at(upper) + m_data->at(upper-1))/2 : m_data->at(upper);
+
     // Arithmetic Mean
     if(arithmeticMeanCheckBox->isChecked())
         outputMask |= ARITHMETIC_MEAN;
