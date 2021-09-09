@@ -46,9 +46,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -118,18 +118,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>255</red>
-        <green>255</green>
-        <blue>255</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -192,9 +192,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -264,18 +264,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>255</red>
-        <green>255</green>
-        <blue>255</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -338,9 +338,9 @@
      <colorrole role="Button">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -410,18 +410,18 @@
      <colorrole role="Base">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
      <colorrole role="Window">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>192</red>
-        <green>191</green>
-        <blue>188</blue>
+        <red>214</red>
+        <green>219</green>
+        <blue>223</blue>
        </color>
       </brush>
      </colorrole>
@@ -486,7 +486,15 @@
     <normaloff>:/images/calculator_icon.png</normaloff>:/images/calculator_icon.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton {
+   <string notr="true">QMainWindow {
+	background: #D6DBDF;
+}
+
+QMenuBar {
+	background: #85929E;
+}
+
+QPushButton {
 	border: 2px solid #8f8f91;
 	border-radius: 6px;
 	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);
@@ -494,6 +502,10 @@
 	padding-right: 5px;
 	padding-top: 2px;
 	padding-bottom: 2px;
+}
+
+QPushButton:pressed {
+	background-color: #85929E;
 }
 
 QLineEdit {
@@ -533,7 +545,7 @@ QLineEdit {
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/calculator_title.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/statistic_calculator_title.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -876,7 +888,6 @@ QLineEdit {
   <tabstop>showGraphic_button</tabstop>
  </tabstops>
  <resources>
-  <include location="resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>
