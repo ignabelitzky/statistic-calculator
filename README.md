@@ -18,7 +18,7 @@ To compile the Static Calculator you should open the CMakeList.txt file with QT 
 * The data can be showed just clicking on the "Show Graphic" button. You must select the drawGraph.py script to display the graphic of the data.
 
 ### Screenshot and videoclip
-![Screenshot](https://github.com/ignabelitzky/statistics-calculator/blob/main/statistics-calculator/images/screenshots/screenshot_img3.png)
+![Screenshot](https://github.com/ignabelitzky/statistic-calculator/blob/main/statistic-calculator/images/screenshots/screenshot_img1.png)
 
 Here is a [clip of the program](https://youtu.be/ogZXb6MJNU0)
 
