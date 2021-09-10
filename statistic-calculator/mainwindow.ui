@@ -479,7 +479,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Statistics Calculator</string>
+   <string>Statistic Calculator</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

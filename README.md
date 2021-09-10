@@ -1,5 +1,5 @@
-# Statistics Calculator
-Statistics calculator. It performs the following operations:
+# Statistic Calculator
+Statistic calculator. It performs the following operations:
 * Arithmetic Mean
 * Median
 * Minimum
@@ -10,7 +10,7 @@ Statistics calculator. It performs the following operations:
 * Upper Quartile
 
 ## Getting Started
-To compile the Static Calculator you should open the CMakeList.txt file with QT Creator and now you can build the app and run on your Linux machine.
+To compile the Statistic Calculator you should open the CMakeList.txt file with QT Creator and now you can build the app and run on your Linux machine.
 
 ### Input/Output of the data/calculations
 * The data can be entered manually or via a space-separated numbers file.
@@ -31,7 +31,6 @@ This software is far from being completed so pull requests are welcome.
 ### TO-DO
 - The posibility of see all the data and do modifications.
 - Improve the drawGraph.py script for showing the graphical representation of the data.
-- Improve GUI with a background and some colours (remainder: make the interface more modern).
 
 ### Known issues
 - It is not a modular code.
