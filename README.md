@@ -20,7 +20,7 @@ To compile the Static Calculator you should open the CMakeList.txt file with QT 
 ### Screenshot and videoclip
 ![Screenshot](https://github.com/ignabelitzky/statistics-calculator/blob/main/statistics-calculator/images/screenshots/screenshot_img3.png)
 
-Here is a [clip of the program](https://youtu.be/FzoHMSEeaXk)
+Here is a [clip of the program](https://youtu.be/ogZXb6MJNU0)
 
 ### Contributing
 This piece of software is far for complete so pull requests are welcome.
