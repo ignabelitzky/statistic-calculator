@@ -1,5 +1,6 @@
 # Statistic Calculator
-Statistic calculator. It performs the following operations:
+Statistic calculator.
+Performs the following operations:
 * Arithmetic Mean
 * Median
 * Minimum
