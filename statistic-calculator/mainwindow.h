@@ -13,7 +13,6 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QtAlgorithms>
-#include <algorithm>
 #include <math.h>
 #include <unistd.h>
 #include <sys/wait.h>

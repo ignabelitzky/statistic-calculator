@@ -11,18 +11,17 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Box Plot Graphic</string>
   </property>
-  <widget class="QCustomPlot" name="graph_QCustomPlot" native="true">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>9</y>
-     <width>621</width>
-     <height>451</height>
-    </rect>
-   </property>
-  </widget>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/images/calculator_icon.png</normaloff>:/images/calculator_icon.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QCustomPlot" name="graph_QCustomPlot" native="true"/>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
@@ -32,6 +31,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

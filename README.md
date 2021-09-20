@@ -16,7 +16,7 @@ To compile the Statistic Calculator you should open the CMakeList.txt file with 
 ### Input/Output of the data/calculations
 * The data can be entered manually or via a space-separated numbers file.
 * The calculations are very easy to show, just select what you want to see and press "Display selected data".
-* The data can be showed just clicking on the "Show Graphic" button. (This is currently not working... I need to fix the issue)
+* The data can be showed just clicking on the "Show Graphic" button.
 
 ### Screenshot and videoclip
 ![Screenshot](https://github.com/ignabelitzky/statistic-calculator/blob/main/statistic-calculator/images/screenshots/screenshot_img1.png)

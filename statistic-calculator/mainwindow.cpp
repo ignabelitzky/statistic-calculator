@@ -222,17 +222,39 @@ void MainWindow::display_selected_data()
 
 void MainWindow::show_graphic()
 {
+    display_selected_data();
     graphWindow = new Graph();
     customPlot = graphWindow->findChild<QCustomPlot *>(QStringLiteral("graph_QCustomPlot"));
+
+    // atypical values
+    QVector<double> atypicalValues;
+    double ric = upperQuartile - lowerQuartile;
+    for(int i = 0; i < m_data.size(); ++i) {
+        if(m_data.at(i) < (lowerQuartile-(1.5*ric)) || m_data.at(i) > (upperQuartile+(1.5*ric))) {
+            atypicalValues.push_back(m_data.at(i));
+        }
+    }
     // create graph and assign data to it:
-    customPlot->addGraph();
-    customPlot->graph(0)->setData(m_data, m_data);	// FIX THIS
-    // give the axes some labels:
-    customPlot->xAxis->setLabel("x");
-    customPlot->yAxis->setLabel("y");
-    // set axes ranges, so we see all data:
-    customPlot->xAxis->setRange(-100, 100);
-    customPlot->yAxis->setRange(-100, 100);
+    QCPStatisticalBox *statistical = new QCPStatisticalBox(customPlot->xAxis, customPlot->yAxis);
+    QBrush boxBrush(QColor(60, 60, 255, 100));
+    boxBrush.setStyle(Qt::Dense6Pattern);	// make it look oldschool
+    statistical->setBrush(boxBrush);
+
+    // specify data:
+    statistical->addData(1, minimum, lowerQuartile, median, upperQuartile, maximum, atypicalValues);
+
+    // prepare manual x axis label:
+    customPlot->xAxis->setSubTicks(false);
+    customPlot->xAxis->setTickLength(0, 4);
+    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+    textTicker->addTick(1, "Data");
+    customPlot->xAxis->setTicker(textTicker);
+
+    customPlot->rescaleAxes();
+    customPlot->xAxis->scaleRange(3., customPlot->xAxis->range().center());
+    customPlot->yAxis->setRange(minimum-2, maximum+2);
+    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+
     customPlot->replot();
     graphWindow->show();
 }

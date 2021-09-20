@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QVector>
-#include <QtPrintSupport>
 #include "qcustomplot.h"
 
 

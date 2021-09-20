@@ -876,6 +876,7 @@ QLineEdit {
   <tabstop>input_lineEdit</tabstop>
   <tabstop>saveData_button</tabstop>
   <tabstop>clearData_button</tabstop>
+  <tabstop>importData_button</tabstop>
   <tabstop>arithmeticMean_checkBox</tabstop>
   <tabstop>median_checkBox</tabstop>
   <tabstop>minimum_checkBox</tabstop>
