@@ -351,11 +351,12 @@ void MainWindow::update_lcd_outputs(unsigned int outputMask)
         upperQuartileDisplay->display(upperQuartile);
 }
 
+// about window generation
 void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox msgBox(this);
     QString information("<center><b>License</b><br>GNU General Public License v3.0<br><br><b>Created by</b><br>Ignacio Belitzky</center>");
-    QString title("About Statistics Calculator");
+    QString title("About Statistical Calculator");
     msgBox.setText(information);
     msgBox.setWindowTitle(title);
     msgBox.addButton(QMessageBox::Ok);
