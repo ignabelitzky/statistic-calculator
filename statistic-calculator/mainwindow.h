@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWidget>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
@@ -9,12 +10,16 @@
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <vector>
+#include <QTextStream>
+#include <QDebug>
+#include <QtAlgorithms>
 #include <algorithm>
 #include <math.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include "param.h"
+#include "qcustomplot.h"
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -76,9 +81,14 @@ private:
     QCheckBox *upperQuartileCheckBox;
 
     // Data
-    std::vector<float> *m_data = nullptr;
+    QVector<double> m_data;
     double arithmeticMean, median, minimum, maximum;
     double variance, standardDeviation, lowerQuartile, upperQuartile;
+
+    // Graph
+    Graph *graphWindow;
+    QCustomPlot *customPlot;
+
 
     void update_data_counter();
     void set_input_display_to_default_value();
@@ -88,7 +98,5 @@ private:
     void enable_all_checkboxes();
     void reset_all_calculations();
     void update_lcd_outputs(unsigned int outputMask);
-    QString data_to_string();
-
 };
 #endif // MAINWINDOW_H

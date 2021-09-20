@@ -16,7 +16,7 @@ To compile the Statistic Calculator you should open the CMakeList.txt file with 
 ### Input/Output of the data/calculations
 * The data can be entered manually or via a space-separated numbers file.
 * The calculations are very easy to show, just select what you want to see and press "Display selected data".
-* The data can be showed just clicking on the "Show Graphic" button. You must select the drawGraph.py script to display the graphic of the data.
+* The data can be showed just clicking on the "Show Graphic" button. (This is currently not working... I need to fix the issue)
 
 ### Screenshot and videoclip
 ![Screenshot](https://github.com/ignabelitzky/statistic-calculator/blob/main/statistic-calculator/images/screenshots/screenshot_img1.png)
@@ -31,7 +31,6 @@ This software is far from being completed so pull requests are welcome.
 
 ### TO-DO
 - The posibility of see all the data and do modifications.
-- Improve the drawGraph.py script for showing the graphical representation of the data.
 
 ### Known issues
 - It is not a modular code.

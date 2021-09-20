@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <QVector>
+#include <QtPrintSupport>
+#include "qcustomplot.h"
+
 
 int main(int argc, char *argv[])
 {

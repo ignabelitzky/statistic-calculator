@@ -26,6 +26,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS PrintSupport REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -33,6 +34,11 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         param.h
+        qcustomplot.cpp
+        qcustomplot.h
+        graph.cpp
+        graph.h
+        graph.ui
         resources.qrc
 )
 
@@ -53,7 +59,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(statistics-calculator PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(statistics-calculator PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt5::PrintSupport)
 
 set_target_properties(statistics-calculator PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

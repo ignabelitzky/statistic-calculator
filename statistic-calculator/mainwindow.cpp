@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Setting the private variables
-    m_data = new std::vector<float>(0);
     reset_all_calculations();
 
     // Labels
@@ -58,6 +57,10 @@ MainWindow::MainWindow(QWidget *parent)
     lowerQuartileCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("lowerQuartile_checkBox"));
     upperQuartileCheckBox = MainWindow::findChild<QCheckBox *>(QStringLiteral("upperQuartile_checkBox"));
 
+    // Graph
+    graphWindow = nullptr;
+    customPlot = nullptr;
+
     // Setting the objects to a default value
     update_data_counter();
     set_input_display_to_default_value();
@@ -77,7 +80,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete m_data;
 }
 
 void MainWindow::save_data()
@@ -92,13 +94,13 @@ void MainWindow::save_data()
         inputDataLineEdit->clear();
         inputDataLineEdit->setFocus();
     } else {
-        if(m_data->size() == 0) {
+        if(m_data.size() == 0) {
             enable_all_checkboxes();
             enable_output_buttons();
         }
         float value = inputData.toFloat();
-        m_data->push_back(value);
-        std::sort(m_data->begin(), m_data->end());
+        m_data.push_back(value);
+        qSort(m_data.begin(), m_data.end());
         update_data_counter();
         set_input_display_to_default_value();
     }
@@ -106,7 +108,7 @@ void MainWindow::save_data()
 
 void MainWindow::clear_all_data()
 {
-    m_data->clear();
+    m_data.clear();
     reset_all_calculations();
     update_data_counter();
     disable_all_checkboxes();
@@ -134,14 +136,14 @@ void MainWindow::import_data_from_file()
                 line = in.readLine();
                 myList = line.split(" ");
                 for(int i = 0; i < myList.size(); ++i) {
-                    m_data->push_back(myList.at(i).toFloat());
+                    m_data.push_back(myList.at(i).toFloat());
                 }
             }
-            if(!m_data->empty()) {
+            if(!m_data.empty()) {
                 update_data_counter();
                 enable_all_checkboxes();
                 enable_output_buttons();
-                std::sort(m_data->begin(), m_data->end());
+                qSort(m_data.begin(), m_data.end());
             }
             file.close();
         } else {
@@ -158,26 +160,26 @@ void MainWindow::display_selected_data()
 {
     reset_all_calculations();
     unsigned int outputMask = 0u;
-    int dataSize = m_data->size();
+    int dataSize = m_data.size();
     for(int i = 0; i < dataSize; ++i) {
-        arithmeticMean += m_data->at(i);
+        arithmeticMean += m_data.at(i);
     }
     arithmeticMean /= dataSize;
 
     if(dataSize % 2 == 0) {
         int firstPos = (dataSize/2)-1;
         int secondPos = dataSize/2;
-        median = (m_data->at(firstPos) + m_data->at(secondPos))/2;
+        median = (m_data.at(firstPos) + m_data.at(secondPos))/2;
     } else {
-        median = m_data->at(dataSize/2);
+        median = m_data.at(dataSize/2);
     }
 
-    minimum = m_data->at(0);
-    maximum = m_data->at(dataSize-1);
+    minimum = m_data.at(0);
+    maximum = m_data.at(dataSize-1);
 
     variance = 0;
     for(int i = 0; i < dataSize; ++i) {
-        variance += pow((m_data->at(i) - arithmeticMean), 2);
+        variance += pow((m_data.at(i) - arithmeticMean), 2);
     }
     variance /= (dataSize - 1);
 
@@ -187,8 +189,8 @@ void MainWindow::display_selected_data()
     unsigned int lower = mid/2;
     unsigned int upper = (dataSize+mid)/2;
 
-    lowerQuartile = mid % 2 == 0 ? (m_data->at(lower) + m_data->at(lower-1))/2 : m_data->at(lower);
-    upperQuartile = mid % 2 == 0 ? (m_data->at(upper) + m_data->at(upper-1))/2 : m_data->at(upper);
+    lowerQuartile = mid % 2 == 0 ? (m_data.at(lower) + m_data.at(lower-1))/2 : m_data.at(lower);
+    upperQuartile = mid % 2 == 0 ? (m_data.at(upper) + m_data.at(upper-1))/2 : m_data.at(upper);
 
     // Arithmetic Mean
     if(arithmeticMeanCheckBox->isChecked())
@@ -218,41 +220,26 @@ void MainWindow::display_selected_data()
     update_lcd_outputs(outputMask);
 }
 
-QString MainWindow::data_to_string() {
-    std::vector<float>::iterator it;
-    QString result = "";
-    for(it = m_data->begin(); it < m_data->end(); ++it) {
-        result += QString::number(*it);
-        if(it != m_data->end()-1) {
-            result += QString(",");
-        }
-    }
-    return result;
-}
-
 void MainWindow::show_graphic()
 {
-    QString scriptPath = QFileDialog::getOpenFileName(this, tr("Select python script for graphic display"), "/home/", "*.py");
-    if(scriptPath.isEmpty()) {
-        QMessageBox msgWarning(this);
-        msgWarning.setText("WARNING!\nYou don't select any file.");
-        msgWarning.setIcon(QMessageBox::Warning);
-        msgWarning.setWindowTitle("Caution");
-        msgWarning.exec();
-    } else {
-        int rc = fork();
-        if(rc == -1) {
-            qDebug() << "Error forking!!!";
-        } else if(rc == 0) {
-            QString values = data_to_string();
-            execl("/usr/bin/python", "python", scriptPath.toStdString().c_str(), values.toStdString().c_str(), NULL);
-        }
-    }
+    graphWindow = new Graph();
+    customPlot = graphWindow->findChild<QCustomPlot *>(QStringLiteral("graph_QCustomPlot"));
+    // create graph and assign data to it:
+    customPlot->addGraph();
+    customPlot->graph(0)->setData(m_data, m_data);	// FIX THIS
+    // give the axes some labels:
+    customPlot->xAxis->setLabel("x");
+    customPlot->yAxis->setLabel("y");
+    // set axes ranges, so we see all data:
+    customPlot->xAxis->setRange(-100, 100);
+    customPlot->yAxis->setRange(-100, 100);
+    customPlot->replot();
+    graphWindow->show();
 }
 
 void MainWindow::update_data_counter()
 {
-    countDataDisplay->display(static_cast<int>(m_data->size()));
+    countDataDisplay->display(static_cast<int>(m_data.size()));
     // Clear and set focus to the Line Edit
     inputDataLineEdit->clear();
     inputDataLineEdit->setFocus();
